@@ -26,13 +26,13 @@ print(movie_scraper.metadata)
 
 #print(type(main_info))
 
-st.header(option, "Info")
+st.header("Info")
 
 for key, value in movie_scraper.metadata.items():
     st.write(key, ": ",value)
 
-# st.header(option, "Reviews")
+st.header("Reviews")
 
-# for r in reviews:
-#     st.write(r)
+for r in reviews:
+    st.write(r)
 
