@@ -1,6 +1,7 @@
 import tomatopy as rtp
 import pandas as pd
 import streamlit as st
+from rotten_tomatoes_scraper.rt_scraper import MovieScraper
 
 movies_list = rtp.scrape_movie_names(2008) # get top movies from 2008
 movies_list = list(dict.fromkeys(movies_list)) # remove duplicates
@@ -18,14 +19,20 @@ main_info, reviews = rtp.scrape_movie_info(option)
 print(main_info)
 #print(reviews)
 
+movie_scraper = MovieScraper(movie_title=option.lower())
+movie_scraper.extract_metadata()
+
+print(movie_scraper.metadata)
+
 #print(type(main_info))
 
 st.header(option, "Info")
 
-for key, value in main_info.items():
+for key, value in movie_scraper.metadata.items():
     st.write(key, ": ",value)
 
-st.header(option, "Reviews")
+# st.header(option, "Reviews")
 
-for r in reviews:
-    st.write(r)
+# for r in reviews:
+#     st.write(r)
+
