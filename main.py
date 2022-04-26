@@ -84,8 +84,13 @@ def reviews(option):
 
 def trend_finder():
     st.title("Trend Finder")
-    data_set_option = st.selectbox('Select a Dataset', range(1960, 2021))
+    data_set_option = st.selectbox('Select a Dataset', range(2000, 2021))
 
+    movies_list = rtp.scrape_movie_names(data_set_option) # get top movies from 1950
+    movies_list = list(dict.fromkeys(movies_list)) # remove duplicates
+    movies_df = pd.DataFrame(movies_list)
+    #movies_df.columns = ["Movie", "Critic Score", "Audience Score", "Sentiment Score"]
+    st.dataframe(movies_df)
 
 def main():
     movie = get_movie()
