@@ -1,0 +1,13 @@
+import tomatopy as rtp
+import pandas as pd
+
+movies_list = rtp.scrape_movie_names(1960) # get top movies from 1950
+
+for i in range(1961, 2021):
+    print("getting movies from: ", i)
+    year_list = rtp.scrape_movie_names(i)
+    movies_list = movies_list + year_list
+
+movies_list = list(dict.fromkeys(movies_list)) # remove duplicates
+movies_df = pd.DataFrame(movies_list)
+movies_df.to_csv('movies.csv')
