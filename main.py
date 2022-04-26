@@ -17,21 +17,25 @@ def get_movie():
 
     # Build Site
     st.title("Rotton Tom")
-    st.dataframe(movies_df)
+    #st.dataframe(movies_df)
 
     option = st.selectbox('Select a Movie', movies_list)
 
-    #option = option.replace(' ', '_')
+    header = option + " Info"
     option = option.lower()
     movie_scraper = MovieScraper(movie_title=option)
     movie_scraper.extract_metadata()
 
     #print(type(main_info))
+    
+    st.header(header)
 
-    st.header("Info")
+    # for key, value in movie_scraper.metadata.items():
+    #     st.write(key, ": ",value)
 
-    for key, value in movie_scraper.metadata.items():
-        st.write(key, ": ",value)
+    col1, col2 = st.columns(2)
+    col1.metric("Critic Score", movie_scraper.metadata.get("Score_Rotten"))
+    col2.metric("Audience Score", movie_scraper.metadata.get("Score_Audience"))
 
     return option
 
@@ -45,7 +49,7 @@ def reviews(option):
     df.columns = ["NA", "freshness", "source", "review", "date"]
     df = df["review"].dropna()
 
-    st.dataframe(df)
+    # st.dataframe(df)
     SIA = SentimentIntensityAnalyzer()
 
     Pos = []
@@ -66,13 +70,27 @@ def reviews(option):
     print("Neutral Score: ", neu_score)
     print("Negative Score: ", neg_score)
 
-    st.write("Pos + Neg Polarity Score: ", (pos_score + neu_score) * 100)
-    st.write("Neg / Pos Score: ", 100 - (neg_score / pos_score) * 100)
-    st.write("Pos / (Neg + Pos) Score: ",  (pos_score / (neg_score + pos_score)) * 100)
+    #st.write("Pos + Neg Polarity Score: ", (pos_score + neu_score) * 100)
+    #st.write("Neg / Pos Score: ", 100 - (neg_score / pos_score) * 100)
+    #st.write("Pos / (Neg + Pos) Score: ",  (pos_score / (neg_score + pos_score)) * 100)
+
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Pos + Neg Polarity Score", int((pos_score + neu_score) * 100))
+    col2.metric("Neg / Pos Score", int(100 - (neg_score / pos_score) * 100))
+    col3.metric("Pos / (Neg + Pos) Score", int((pos_score / (neg_score + pos_score)) * 100))
+
+    if option == "anaconda":
+        st.balloons()
+
+def trend_finder():
+    st.title("Trend Finder")
+    data_set_option = st.selectbox('Select a Dataset', range(1960, 2021))
+
 
 def main():
     movie = get_movie()
     reviews(movie)
+    trend_finder()
 
 if __name__ == "__main__":
     main()
