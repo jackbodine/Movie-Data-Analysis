@@ -1,6 +1,9 @@
+from numpy import integer
 import tomatopy as rtp
 import pandas as pd
 import streamlit as st
+import numpy as np
+from typing import List
 import nltk 
 from rotten_tomatoes_scraper.rt_scraper import MovieScraper
 #nltk.download('vader_lexicon')
@@ -88,9 +91,84 @@ def trend_finder():
 
     movies_list = rtp.scrape_movie_names(data_set_option) # get top movies from 1950
     movies_list = list(dict.fromkeys(movies_list)) # remove duplicates
+    movies_list = movies_list[1:20]
     movies_df = pd.DataFrame(movies_list)
     #movies_df.columns = ["Movie", "Critic Score", "Audience Score", "Sentiment Score"]
     st.dataframe(movies_df)
+
+    #movie_scores_df = pd.DataFrame
+    #movies_scores_df.columns = ["Critic Score", "Audience Score", "Sentiment Score"]
+
+    sentiment_score:List[integer] = []
+    audience_score:List[integer] = []
+    rotten_score:List[integer] = []
+
+    for movie in movies_list:
+        print("Analysing ", movie)
+        run(movie)
+        try:
+
+            option_2 = movie.lower()
+            movie_scraper = MovieScraper(movie_title=option_2)
+            movie_scraper.extract_metadata()
+
+
+            df = pd.read_csv("reviews.csv")
+            df.columns = ["NA", "freshness", "source", "review", "date"]
+            df = df["review"].dropna()
+
+            SIA = SentimentIntensityAnalyzer()
+
+            Pos = []
+            Neu = []
+            Neg = []
+
+            for r in df:
+                # st.write(r)
+                Pos.append(SIA.polarity_scores(r).get("pos"))
+                Neu.append(SIA.polarity_scores(r).get("neu"))
+                Neg.append(SIA.polarity_scores(r).get("neg"))
+
+            pos_score = sum(Pos) / len(Pos)
+            neu_score = sum(Neu) / len(Neu)
+            neg_score = sum(Neg) / len(Neg)
+
+            print("Positive Score: ", pos_score)
+            print("Neutral Score: ", neu_score)
+            print("Negative Score: ", neg_score)
+
+            score = int((pos_score / (neg_score + pos_score)) * 100)
+
+            audience_score.append(int(movie_scraper.metadata.get("Score_Audience")))
+            rotten_score.append(int(movie_scraper.metadata.get("Score_Rotten")))
+            sentiment_score.append(score)
+
+        except:
+            print("Movie Failed...")
+            sentiment_score.append(0)
+            audience_score.append(0)
+            rotten_score.append(0)
+
+    print("SENTIMENT_SCORE: ", sentiment_score)
+    print("AUDIENCE_SCORE: ", audience_score)
+    print("ROTTEN_SCORE: ", rotten_score)
+
+    movies_df['Sentiment Score'] = sentiment_score
+    movies_df['Audience Score'] = audience_score
+    movies_df['Rotten Score'] = rotten_score
+
+    # movies_df["Sentiment Score"] = pd.to_numeric(movies_df["Sentiment Score"])
+    # movies_df["Audience Score"] = pd.to_numeric(movies_df["Audience Score"])
+    # movies_df["Rotten Score"] = pd.to_numeric(movies_df["Rotten Score"])
+
+    movies_df = movies_df.dropna() 
+    movies_df.sort_values(by=['Sentiment Score'])
+
+    st.dataframe(movies_df)
+
+    movies_df.drop(0, axis=1, inplace=True) 
+
+    st.line_chart(movies_df)
 
 def main():
     movie = get_movie()
