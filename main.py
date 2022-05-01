@@ -49,6 +49,7 @@ def reviews(option):
     run(option)
 
     df = pd.read_csv("reviews.csv")
+    st.dataframe(df)
     df.columns = ["NA", "freshness", "source", "review", "date"]
     df = df["review"].dropna()
 
@@ -91,8 +92,8 @@ def trend_finder():
 
     movies_list = rtp.scrape_movie_names(data_set_option) # get top movies from 1950
     movies_list = list(dict.fromkeys(movies_list)) # remove duplicates
-    movies_list = movies_list[1:20]
-    movies_df = pd.DataFrame(movies_list)
+    movies_list = movies_list[1:5]
+    movies_df = pd.DataFrame(movies_list, columns =['Name'])
     #movies_df.columns = ["Movie", "Critic Score", "Audience Score", "Sentiment Score"]
     st.dataframe(movies_df)
 
@@ -103,77 +104,181 @@ def trend_finder():
     audience_score:List[integer] = []
     rotten_score:List[integer] = []
 
-    for movie in movies_list:
-        print("Analysing ", movie)
-        run(movie)
-        try:
+    a_r_difference = []
+    s_r_difference = []
+    s_a_difference = []
 
-            option_2 = movie.lower()
-            movie_scraper = MovieScraper(movie_title=option_2)
-            movie_scraper.extract_metadata()
+    if st.button('Analyze!'):
+        for movie in movies_list:
+            print("Analysing ", movie)
+            run(movie)
+            try:
+
+                option_2 = movie.lower()
+                movie_scraper = MovieScraper(movie_title=option_2)
+                movie_scraper.extract_metadata()
 
 
-            df = pd.read_csv("reviews.csv")
-            df.columns = ["NA", "freshness", "source", "review", "date"]
-            df = df["review"].dropna()
+                df = pd.read_csv("reviews.csv")
+                df.columns = ["NA", "freshness", "source", "review", "date"]
+                df = df["review"].dropna()
 
-            SIA = SentimentIntensityAnalyzer()
+                SIA = SentimentIntensityAnalyzer()
 
-            Pos = []
-            Neu = []
-            Neg = []
 
-            for r in df:
-                # st.write(r)
-                Pos.append(SIA.polarity_scores(r).get("pos"))
-                Neu.append(SIA.polarity_scores(r).get("neu"))
-                Neg.append(SIA.polarity_scores(r).get("neg"))
+                Pos = []
+                Neu = []
+                Neg = []
 
-            pos_score = sum(Pos) / len(Pos)
-            neu_score = sum(Neu) / len(Neu)
-            neg_score = sum(Neg) / len(Neg)
+                for r in df:
+                    # st.write(r)
+                    Pos.append(SIA.polarity_scores(r).get("pos"))
+                    Neu.append(SIA.polarity_scores(r).get("neu"))
+                    Neg.append(SIA.polarity_scores(r).get("neg"))
 
-            print("Positive Score: ", pos_score)
-            print("Neutral Score: ", neu_score)
-            print("Negative Score: ", neg_score)
+                pos_score = sum(Pos) / len(Pos)
+                neu_score = sum(Neu) / len(Neu)
+                neg_score = sum(Neg) / len(Neg)
 
-            score = int((pos_score / (neg_score + pos_score)) * 100)
+                print("Positive Score: ", pos_score)
+                print("Neutral Score: ", neu_score)
+                print("Negative Score: ", neg_score)
 
-            audience_score.append(int(movie_scraper.metadata.get("Score_Audience")))
-            rotten_score.append(int(movie_scraper.metadata.get("Score_Rotten")))
-            sentiment_score.append(score)
+                score = int((pos_score / (neg_score + pos_score)) * 100)
 
-        except:
-            print("Movie Failed...")
-            sentiment_score.append(0)
-            audience_score.append(0)
-            rotten_score.append(0)
+                a_score = int(movie_scraper.metadata.get("Score_Audience"))
+                r_score = int(movie_scraper.metadata.get("Score_Rotten"))
+                s_score = score
 
-    print("SENTIMENT_SCORE: ", sentiment_score)
-    print("AUDIENCE_SCORE: ", audience_score)
-    print("ROTTEN_SCORE: ", rotten_score)
+                audience_score.append(a_score)
+                rotten_score.append(r_score)
+                sentiment_score.append(s_score)
 
-    movies_df['Sentiment Score'] = sentiment_score
-    movies_df['Audience Score'] = audience_score
-    movies_df['Rotten Score'] = rotten_score
+                a_r_difference.append(abs(a_score - r_score))
+                s_r_difference.append(abs(s_score - r_score))
+                s_a_difference.append(abs(s_score - a_score))
 
-    # movies_df["Sentiment Score"] = pd.to_numeric(movies_df["Sentiment Score"])
-    # movies_df["Audience Score"] = pd.to_numeric(movies_df["Audience Score"])
-    # movies_df["Rotten Score"] = pd.to_numeric(movies_df["Rotten Score"])
+            except:
+                print("Movie Failed...")
+                sentiment_score.append(0)
+                audience_score.append(0)
+                rotten_score.append(0)
 
-    movies_df = movies_df.dropna() 
-    movies_df.sort_values(by=['Sentiment Score'])
+                a_r_difference.append(0)
+                s_r_difference.append(0)
+                s_a_difference.append(0)
 
-    st.dataframe(movies_df)
+        print("SENTIMENT_SCORE: ", sentiment_score)
+        print("AUDIENCE_SCORE: ", audience_score)
+        print("ROTTEN_SCORE: ", rotten_score)
 
-    movies_df.drop(0, axis=1, inplace=True) 
+        movies_df['Sentiment Score'] = sentiment_score
+        movies_df['Audience Score'] = audience_score
+        movies_df['Rotten Score'] = rotten_score
 
-    st.line_chart(movies_df)
+        movies_df['a_r_difference'] = a_r_difference
+        movies_df['s_r_difference'] = s_r_difference
+        movies_df['s_a_difference'] = s_a_difference
+
+        # movies_df["Sentiment Score"] = pd.to_numeric(movies_df["Sentiment Score"])
+        # movies_df["Audience Score"] = pd.to_numeric(movies_df["Audience Score"])
+        # movies_df["Rotten Score"] = pd.to_numeric(movies_df["Rotten Score"])
+
+        movies_df = movies_df.dropna() 
+
+        st.dataframe(movies_df)
+
+        movies_df_2 = movies_df.sort_values(by=['Sentiment Score'])
+
+        #st.dataframe(movies_df_2)
+        st.write("Movie with largest Sentiment Score: ", movies_df_2["Name"][0])
+
+        movies_df = movies_df.sort_values(by=['Sentiment Score'], ascending=False)
+        st.write("Movie with lowest Sentiment Score: ", movies_df["Name"][0])
+
+        movies_df = movies_df.sort_values(by=['a_r_difference'])
+        st.write("Movie with largest Audience-Rotten Difference: ", movies_df["Name"][0])
+
+        movies_df = movies_df.sort_values(by=['s_r_difference'])
+        st.write("Movie with largest Sentiment-Rotten Difference: ", movies_df["Name"][0])
+
+        movies_df = movies_df.sort_values(by=['s_a_difference'])
+        #st.dataframe(movies_df)
+        st.write("Movie with largest Sentiment-Audience Difference: ", movies_df["Name"][0])
+
+        movies_df = movies_df.sort_values(by=['Sentiment Score'])
+        movies_df.drop("Name", axis=1, inplace=True) 
+
+        st.line_chart(movies_df)
+
+def combo():
+    st.title("Combination Finder")
+
+    top_movies_df = pd.read_csv("IMDB-Movie-Data.csv")
+    #top_movies_df.columns = ["Rank","Title","Genre","Description","Director","Actors","Year","Runtime (Minutes)","Rating","Votes","Revenue (Millions)","Metascore"]
+    st.dataframe(top_movies_df)
+    Dict = dict()
+    Dict_rev = dict()
+
+    combinations = pd.DataFrame()
+
+    for index, movie in top_movies_df.iterrows():
+        #print(movie)
+        director = movie['Director']
+        metascore = movie["Metascore"]
+        revenue = movie["Revenue (Millions)"]
+        actors_str = movie["Actors"]
+        actors = actors_str.split(",")
+
+        for a in actors:
+            combo = director + "_" + a
+            try:
+                score_list = Dict.get(combo)
+                score_list.append(metascore)
+                Dict[combo] = score_list
+            except:
+                score_list = []
+                score_list.append(metascore)
+                Dict[combo] = score_list
+
+            try:
+                rev_list = Dict_rev.get(combo)
+                rev_list.append(revenue)
+                Dict_rev[combo] = rev_list
+            except:
+                rev_list = []
+                rev_list.append(revenue)
+                Dict_rev[combo] = rev_list
+
+    combo_names = []
+    combo_avg_scores = []
+    combo_avg_rev = []
+
+    min_movies = st.slider('Minimum number of collaborations.', 1, 4)
+
+    for k in Dict:
+        v = Dict.get(k)
+        v2 = Dict_rev.get(k)
+        avg_score = sum(v)/len(v)
+        avg_rev = sum(v2)/len(v2)
+        if len(v) >= min_movies:
+            combo_names.append(k)
+            combo_avg_scores.append(avg_score)
+            combo_avg_rev.append(avg_rev)
+
+    combinations["id"] = combo_names
+    combinations["avg_metascore"] = combo_avg_scores
+    combinations["avg_Revenue"] = combo_avg_rev
+
+    st.dataframe(combinations)
+    
 
 def main():
     movie = get_movie()
-    reviews(movie)
+    if st.button('Get Sentiment Score'):
+        reviews(movie)
     trend_finder()
+    combo()
 
 if __name__ == "__main__":
     main()

@@ -13,6 +13,11 @@ import csv
 
 def run(name):
     name = name.replace(" ", "_")
+    name = name.replace("'", "")
+    name = name.replace(",", "")
+    name = name.replace(".", "")
+    name = name.replace(":", "")
+
     print("Running Review Scraper on: ", name)
     pageNum = 3
     url_1 = 'https://www.rottentomatoes.com/m/' 
