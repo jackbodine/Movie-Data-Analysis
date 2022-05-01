@@ -188,10 +188,10 @@ def trend_finder():
 
         st.dataframe(movies_df)
 
-        movies_df_2 = movies_df.sort_values(by=['Sentiment Score'])
+        movies_df = movies_df.sort_values(by=['Sentiment Score'])
 
         #st.dataframe(movies_df_2)
-        st.write("Movie with largest Sentiment Score: ", movies_df_2["Name"][0])
+        st.write("Movie with largest Sentiment Score: ", movies_df["Name"][0])
 
         movies_df = movies_df.sort_values(by=['Sentiment Score'], ascending=False)
         st.write("Movie with lowest Sentiment Score: ", movies_df["Name"][0])
