@@ -1,0 +1,300 @@
+,Name,Sentiment Score,Audience Score,Rotten Score,a_r_difference,s_r_difference,s_a_difference
+0,Gladiator,76,68,31,37,45,8
+1,Dinosaur,0,0,0,0,0,0
+2,Final Destination,42,68,35,33,7,26
+3,Scary Movie,47,43,52,9,5,4
+4,Meet the Parents,0,0,0,0,0,0
+5,Traffic,0,0,0,0,0,0
+6,The Adventures of Rocky and Bullwinkle,77,20,43,23,34,57
+7,Charlie's Angels,76,78,52,26,24,2
+8,Rugrats in Paris: The Movie,0,0,0,0,0,0
+9,Thomas and the Magic Railroad,42,42,21,21,21,0
+10,"Crouching Tiger, Hidden Dragon",84,86,97,11,13,2
+11,American Psycho,62,85,69,16,7,23
+12,Almost Famous,85,92,89,3,4,7
+13,Erin Brockovich,88,81,85,4,3,7
+14,Cast Away,75,84,89,5,14,9
+15,What Women Want,78,29,0,29,78,49
+16,How the Grinch Stole Christmas,48,95,100,5,52,47
+17,The Perfect Storm,59,63,47,16,12,4
+18,What Lies Beneath,29,58,47,11,18,29
+19,Chicken Run,95,65,97,32,2,30
+20,Billy Elliot,86,89,85,4,1,3
+21,Nurse Betty,67,45,83,38,16,22
+22,Quills,55,83,75,8,20,28
+23,Wonder Boys,81,83,81,2,0,2
+24,Chocolat,63,67,100,33,37,4
+25,Pollock,71,74,80,6,9,3
+26,You Can Count on Me,79,88,95,7,16,9
+27,The Road to El Dorado,0,0,0,0,0,0
+28,The Emperor's New Groove,0,0,0,0,0,0
+29,Snow Falling on Cedars,75,67,39,28,36,8
+30,Magnolia,64,89,83,6,19,25
+31,Next Friday,50,76,21,55,29,26
+32,My Dog Skip,83,68,73,5,10,15
+33,Play It to the Bone,55,25,11,14,44,30
+34,Supernova,0,0,0,0,0,0
+35,The Boondock Saints,0,0,0,0,0,0
+36,Down to You,64,49,3,46,61,15
+37,The End of the Affair,0,0,0,0,0,0
+38,"Up, Up and Away",0,0,0,0,0,0
+39,Eye of the Beholder,0,0,0,0,0,0
+40,Isn't She Great,82,38,25,13,57,44
+41,Simpatico,65,14,25,11,40,51
+42,Cabin by the Lake,0,0,0,0,0,0
+43,Gun Shy,80,39,0,39,80,41
+44,Scream 3,50,37,41,4,9,13
+45,The Color of Friendship,0,0,0,0,0,0
+46,The Beach,0,0,0,0,0,0
+47,Snow Day,75,27,29,2,46,48
+48,The Tigger Movie,82,62,62,0,20,20
+49,An American Tail: The Treasure of Manhattan Island,0,0,0,0,0,0
+50,Beautiful People,0,0,0,0,0,0
+51,Boiler Room,0,0,0,0,0,0
+52,Hanging Up,31,34,12,22,19,3
+53,Pitch Black,79,77,59,18,20,2
+54,The Whole Nine Yards,69,64,43,21,26,5
+55,Reindeer Games,57,27,26,1,31,30
+56,Freedom Song,0,0,0,0,0,0
+57,The 10th Kingdom,0,0,0,0,0,0
+58,An Extremely Goofy Movie,0,0,0,0,0,0
+59,3 Strikes,31,66,0,66,31,35
+60,Drowning Mona,78,46,29,17,49,32
+61,The Next Best Thing,0,0,0,0,0,0
+62,If These Walls Could Talk 2,0,0,0,0,0,0
+63,Mission to Mars,59,30,24,6,35,29
+64,The Ninth Gate,0,0,0,0,0,0
+65,Model Behavior,0,0,0,0,0,0
+66,Beyond the Mat,0,0,0,0,0,0
+67,Alley Cats Strike,0,0,0,0,0,0
+68,Romeo Must Die,72,61,32,29,40,11
+69,Ghost Dog: The Way of the Samurai,83,86,83,3,0,3
+70,Here on Earth,56,60,17,43,39,4
+71,Mr. Accident,0,0,0,0,0,0
+72,Whatever It Takes,0,0,0,0,0,0
+73,The Audrey Hepburn Story,0,0,0,0,0,0
+74,Leprechaun in the Hood,18,32,33,1,15,14
+75,High Fidelity,0,0,0,0,0,0
+76,Price of Glory,73,77,33,44,40,4
+77,The Skulls,0,0,0,0,0,0
+78,Black and White,0,0,0,0,0,0
+79,Joe Gould's Secret,77,63,65,2,12,14
+80,Ready to Rumble,47,52,23,29,24,5
+81,Return to Me,98,79,62,17,36,19
+82,Rules of Engagement,37,55,37,18,0,18
+83,Angels in the Infield,0,0,0,0,0,0
+84,Don Quixote,0,0,0,0,0,0
+85,Fail Safe,100,79,100,21,0,21
+86,28 Days,77,50,33,17,44,27
+87,Keeping the Faith,89,59,69,10,20,30
+88,Where the Money Is,47,36,48,12,1,11
+89,Gossip,0,0,0,0,0,0
+90,The Virgin Suicides,0,0,0,0,0,0
+91,Rip Girls,0,0,0,0,0,0
+92,The Three Stooges,0,0,0,0,0,0
+93,The Expendables,62,64,42,22,20,2
+94,The Big Kahuna,91,71,73,2,18,20
+95,Committed,0,0,0,0,0,0
+96,The Flintstones in Viva Rock Vegas,89,20,25,5,64,69
+97,Frequency,52,81,70,11,18,29
+98,The Last September,40,33,42,9,2,7
+99,Where the Heart Is,0,0,0,0,0,0
+100,Arabian Nights (miniseries),0,0,0,0,0,0
+101,I Dreamed of Africa,65,56,10,46,55,9
+102,Michael Jordan to the Max,84,81,67,14,17,3
+103,Up at the Villa,56,36,45,9,11,20
+104,Geppetto,0,0,0,0,0,0
+105,Jason and the Argonauts (miniseries),0,0,0,0,0,0
+106,Battlefield Earth,31,12,3,9,28,19
+107,Center Stage,0,0,0,0,0,0
+108,Hamlet,0,0,0,0,0,0
+109,Held Up,0,0,0,0,0,0
+110,Screwed,0,0,0,0,0,0
+111,Miracle in Lane 2,0,0,0,0,0,0
+112,Road Trip,0,0,0,0,0,0
+113,Small Time Crooks,79,57,66,9,13,22
+114,Cheaters,0,0,0,0,0,0
+115,Passion of Mind,81,51,19,32,62,30
+116,Shanghai Noon,87,65,80,15,7,22
+117,Big Momma's House,29,57,30,27,1,28
+118,Running Free,0,0,0,0,0,0
+119,Gone in 60 Seconds,0,0,0,0,0,0
+120,Love's Labour's Lost,0,0,0,0,0,0
+121,Sunshine,0,0,0,0,0,0
+122,Boys and Girls,67,50,11,39,56,17
+123,Fantasia 2000,69,75,81,6,12,6
+124,Jesus' Son,44,83,80,3,36,39
+125,Shaft,71,94,34,60,37,23
+126,Titan A.E.,69,60,50,10,19,9
+127,Time Regained,62,71,71,0,9,9
+128,Stepsister from Planet Weird,0,0,0,0,0,0
+129,The Patriot,0,0,0,0,0,0
+130,Trixie,60,23,28,5,32,37
+131,Blood Simple,78,88,93,5,15,10
+132,But I'm a Cheerleader,68,74,42,32,26,6
+133,Disney's The Kid,0,0,0,0,0,0
+134,Heavy Metal 2000,52,36,17,19,35,16
+135,The Five Senses,0,0,0,0,0,0
+136,Ready to Run,0,0,0,0,0,0
+137,The In Crowd,0,0,0,0,0,0
+138,The Eyes of Tammy Faye,24,87,69,18,45,63
+139,Loser,0,0,0,0,0,0
+140,Pokémon: The Movie 2000,0,0,0,0,0,0
+141,An American Tail: The Mystery of the Night Monster,0,0,0,0,0,0
+142,Beethoven's 3rd,100,24,0,24,100,76
+143,Croupier,70,79,95,16,25,9
+144,Girl on the Bridge,0,0,0,0,0,0
+145,Nutty Professor II: The Klumps,34,33,26,7,8,1
+146,Wonderland,0,0,0,0,0,0
+147,Coyote Ugly,57,71,23,48,34,14
+148,Hollow Man,49,28,26,2,23,21
+149,Saving Grace,0,0,0,0,0,0
+150,Space Cowboys,50,53,78,25,28,3
+151,The Tao of Steve,0,0,0,0,0,0
+152,Buzz Lightyear of Star Command: The Adventure Begins,0,0,0,0,0,0
+153,Autumn in New York,62,54,19,35,43,8
+154,Bless the Child,47,43,3,40,44,4
+155,Cecil B. Demented,75,67,52,15,23,8
+156,The Opportunists,0,0,0,0,0,0
+157,The Replacements,0,0,0,0,0,0
+158,The New Adventures of Spin and Marty: Suspect Behavior,0,0,0,0,0,0
+159,Running Mates,0,0,0,0,0,0
+160,The Cell,0,0,0,0,0,0
+161,Godzilla 2000,69,54,57,3,12,15
+162,The Original Kings of Comedy,0,0,0,0,0,0
+163,Quints,0,0,0,0,0,0
+164,Sunset Strip,0,0,0,0,0,0
+165,The Art of War,0,0,0,0,0,0
+166,Bring It On,92,66,64,2,28,26
+167,The Crew,0,0,0,0,0,0
+168,The Last of the Blonde Bombshells,0,0,0,0,0,0
+169,Alvin and the Chipmunks Meet the Wolfman,0,0,0,0,0,0
+170,Highlander: Endgame,33,38,11,27,22,5
+171,Whipped,0,0,0,0,0,0
+172,Turn It Up,58,26,8,18,50,32
+173,Backstage,0,0,0,0,0,0
+174,The Other Me,100,73,40,33,60,27
+175,This Is Spinal Tap,80,92,95,3,15,12
+176,The Watcher,0,0,0,0,0,0
+177,The Way of the Gun,0,0,0,0,0,0
+178,Bait,13,61,100,39,87,48
+179,Circus,0,0,0,0,0,0
+180,Crime and Punishment in Suburbia,28,58,21,37,7,30
+181,Duets,0,0,0,0,0,0
+182,Into the Arms of Strangers: Stories of the Kindertransport,67,87,91,4,24,20
+183,The Little Mermaid II: Return to the Sea,0,0,0,0,0,0
+184,The Fantasticks,59,49,48,1,11,10
+185,Under Suspicion,0,0,0,0,0,0
+186,Urban Legends: Final Cut,32,20,9,11,23,12
+187,Woman on Top,100,42,35,7,65,58
+188,Beautiful,0,0,0,0,0,0
+189,Best in Show,95,89,93,4,2,6
+190,Girlfight,79,75,88,13,9,4
+191,Remember the Titans,84,93,73,20,11,9
+192,Bamboozled,50,74,53,21,3,24
+193,Bootmen,67,69,35,34,32,2
+194,Dancer in the Dark,42,91,69,22,27,49
+195,Digimon: The Movie,55,66,24,42,31,11
+196,Get Carter,31,28,11,17,20,3
+197,Tigerland,0,0,0,0,0,0
+198,Animal Factory,29,58,83,25,54,29
+199,The Contender,0,0,0,0,0,0
+200,The Ladies Man,78,42,11,31,67,36
+201,Lost Souls,0,0,0,0,0,0
+202,Mom's Got a Date with a Vampire,0,0,0,0,0,0
+203,Whispers: An Elephant's Tale,0,0,0,0,0,0
+204,Bedazzled,0,0,0,0,0,0
+205,Cherry Falls,66,32,61,29,5,34
+206,Drunken Master II,0,0,0,0,0,0
+207,Pay It Forward,77,77,39,38,38,0
+208,Book of Shadows: Blair Witch 2,10,18,14,4,4,8
+209,The Little Vampire,75,55,55,0,20,20
+210,Loving Jezebel,85,47,33,14,52,38
+211,Lucky Numbers,54,19,22,3,32,35
+212,Batman Beyond: Return of the Joker,81,86,100,14,19,5
+213,Mercy Streets,38,55,13,42,25,17
+214,The Legend of Bagger Vance,0,0,0,0,0,0
+215,Little Nicky,45,55,21,34,24,10
+216,Men of Honor,64,81,42,39,22,17
+217,Phantom of the Megaplex,0,0,0,0,0,0
+218,Red Planet,52,28,14,14,38,24
+219,In the Beginning (miniseries),0,0,0,0,0,0
+220,The Miracle Worker,0,0,0,0,0,0
+221,The 6th Day,52,32,40,8,12,20
+222,Bounce,78,32,53,21,25,46
+223,For Love or Country: The Arturo Sandoval Story,0,0,0,0,0,0
+224,Our Lips Are Sealed,0,0,0,0,0,0
+225,102 Dalmatians,69,32,31,1,38,37
+226,Unbreakable,0,0,0,0,0,0
+227,Panic,0,0,0,0,0,0
+228,The Ultimate Christmas Present,0,0,0,0,0,0
+229,Proof of Life,57,43,39,4,18,14
+230,Snatch,69,93,74,19,5,24
+231,Vertical Limit,63,41,48,7,15,22
+232,Disappearing Acts,100,85,60,25,40,15
+233,Air Bud: World Pup,0,0,0,0,0,0
+234,Before Night Falls,62,84,74,10,12,22
+235,Dracula 2000,43,39,17,22,26,4
+236,The Family Man,0,0,0,0,0,0
+237,Finding Forrester,85,79,74,5,11,6
+238,The Gift,0,0,0,0,0,0
+239,The House of Mirth,0,0,0,0,0,0
+240,Miss Congeniality,72,69,41,28,31,3
+241,State and Main,77,70,85,15,8,7
+242,Thirteen Days,53,80,83,3,30,27
+243,All the Pretty Horses,63,42,32,10,31,21
+244,An Everlasting Piece,0,0,0,0,0,0
+245,Vatel,34,60,31,29,3,26
+246,The Claim,0,0,0,0,0,0
+247,Shadow of the Vampire,74,74,81,7,7,0
+248,101 Reykjavík,0,0,0,0,0,0
+249,A Better Way to Die,0,0,0,0,0,0
+250,Across the Line,0,0,0,0,0,0
+251,Adanggaman,49,62,90,28,41,13
+252,Adventures in Wild California,77,50,86,36,9,27
+253,Ali Zaoua,0,0,0,0,0,0
+254,Amores perros,58,94,93,1,35,36
+255,Baller Blockin',0,0,0,0,0,0
+256,Bang Rajan,51,73,71,2,20,22
+257,Battle Royale,51,89,88,1,37,38
+258,The Bench,0,0,0,0,0,0
+259,Blue's Big Musical Movie,0,0,0,0,0,0
+260,Brother,0,0,0,0,0,0
+261,La Captive,0,0,0,0,0,0
+262,The Chaos Factor,0,0,0,0,0,0
+263,Chopper,0,0,0,0,0,0
+264,A Chronicle of Corpses,0,0,0,0,0,0
+265,The Circle,0,0,0,0,0,0
+266,Code Unknown,0,0,0,0,0,0
+267,Coming Out,0,0,0,0,0,0
+268,La comunidad,0,0,0,0,0,0
+269,The Crow: Salvation,0,0,0,0,0,0
+270,The Day I Became a Woman,0,0,0,0,0,0
+271,Devils on the Doorstep,54,95,91,4,37,41
+272,Ditto,0,0,0,0,0,0
+273,Divided We Fall,77,91,90,1,13,14
+274,Djomeh,80,62,90,28,10,18
+275,Durian Durian,0,0,0,0,0,0
+276,El Bola,0,0,0,0,0,0
+277,Enslavement: The True Story of Fanny Kemble,0,0,0,0,0,0
+278,Escaflowne,0,0,0,0,0,0
+279,Faat Kiné,0,0,0,0,0,0
+280,Face,0,0,0,0,0,0
+281,For All Time,0,0,0,0,0,0
+282,Forbidden Fruit,0,0,0,0,0,0
+283,The Foul King,0,0,0,0,0,0
+284,Gangster No. 1,46,77,71,6,25,31
+285,Ginger Snaps,47,78,89,11,42,31
+286,The Girl,0,0,0,0,0,0
+287,Godzilla vs. Megaguirus,68,47,60,13,8,21
+288,The Golden Bowl,0,0,0,0,0,0
+289,Greenfingers,72,66,46,20,26,6
+290,Happy Accidents,84,75,70,5,14,9
+291,Happy Times,63,78,73,5,10,15
+292,How to Kill Your Neighbor's Dog,68,73,59,14,9,5
+293,Il Mare,0,0,0,0,0,0
+294,In the Mood for Love,0,0,0,0,0,0
+295,The Irrefutable Truth about Demons,0,0,0,0,0,0
+296,The Isle,0,0,0,0,0,0
+297,Italian for Beginners,91,79,87,8,4,12
+298,Ivans Xtc,0,0,0,0,0,0

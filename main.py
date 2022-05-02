@@ -4,6 +4,7 @@ import pandas as pd
 import streamlit as st
 import numpy as np
 from typing import List
+import matplotlib.pyplot as plt
 import nltk 
 from rotten_tomatoes_scraper.rt_scraper import MovieScraper
 #nltk.download('vader_lexicon')
@@ -59,7 +60,8 @@ def get_movie():
     movies_list = movies_df["movie"].values.tolist()
 
     # Build Site
-    st.title("Rotton Tom")
+    st.title("Rotten Tomatoes Movie Analysis")
+    st.image("./thumbnail.jpg")
     #st.dataframe(movies_df)
 
     option = st.selectbox('Select a Movie', movies_list)
@@ -141,10 +143,11 @@ def reviews(option):
 def trend_finder():
     st.title("Trend Finder")
     data_set_option = st.selectbox('Select a Dataset', range(2000, 2021))
+    save_location = "data/" + str(data_set_option) + ".csv"
 
     movies_list = rtp.scrape_movie_names(data_set_option) # get top movies from 1950
     movies_list = list(dict.fromkeys(movies_list)) # remove duplicates
-    movies_list = movies_list[1:5]
+    movies_list = movies_list[1:250]
     movies_df = pd.DataFrame(movies_list, columns =['Name'])
     #movies_df.columns = ["Movie", "Critic Score", "Audience Score", "Sentiment Score"]
     st.dataframe(movies_df)
@@ -161,105 +164,143 @@ def trend_finder():
     s_a_difference = []
 
     if st.button('Analyze!'):
-        for movie in movies_list:
-            print("Analysing ", movie)
-            run(movie)
-            try:
+        try:
+            movies_df = pd.read_csv(save_location)
+            print("found file!")
+            print("found file!")
+            print("found file!")
 
-                option_2 = movie.lower()
-                movie_scraper = MovieScraper(movie_title=option_2)
-                movie_scraper.extract_metadata()
+            movies_df = movies_df.drop(movies_df[movies_df["Sentiment Score"] == 0].index)
+            st.dataframe(movies_df)
+        except:
+            for movie in movies_list:
+                print("Analysing ", movie)
+                run(movie)
+                try:
+
+                    option_2 = movie.lower()
+                    movie_scraper = MovieScraper(movie_title=option_2)
+                    movie_scraper.extract_metadata()
 
 
-                df = pd.read_csv("reviews.csv")
-                df.columns = ["NA", "freshness", "source", "review", "date"]
-                df = df["review"].dropna()
+                    df = pd.read_csv("reviews.csv")
+                    df.columns = ["NA", "freshness", "source", "review", "date"]
+                    df = df["review"].dropna()
 
-                SIA = SentimentIntensityAnalyzer()
+                    SIA = SentimentIntensityAnalyzer()
 
 
-                Pos = []
-                Neu = []
-                Neg = []
+                    Pos = []
+                    Neu = []
+                    Neg = []
 
-                for r in df:
-                    # st.write(r)
-                    Pos.append(SIA.polarity_scores(r).get("pos"))
-                    Neu.append(SIA.polarity_scores(r).get("neu"))
-                    Neg.append(SIA.polarity_scores(r).get("neg"))
+                    for r in df:
+                        # st.write(r)
+                        Pos.append(SIA.polarity_scores(r).get("pos"))
+                        Neu.append(SIA.polarity_scores(r).get("neu"))
+                        Neg.append(SIA.polarity_scores(r).get("neg"))
 
-                pos_score = sum(Pos) / len(Pos)
-                neu_score = sum(Neu) / len(Neu)
-                neg_score = sum(Neg) / len(Neg)
+                    pos_score = sum(Pos) / len(Pos)
+                    neu_score = sum(Neu) / len(Neu)
+                    neg_score = sum(Neg) / len(Neg)
 
-                print("Positive Score: ", pos_score)
-                print("Neutral Score: ", neu_score)
-                print("Negative Score: ", neg_score)
+                    print("Positive Score: ", pos_score)
+                    print("Neutral Score: ", neu_score)
+                    print("Negative Score: ", neg_score)
 
-                score = int((pos_score / (neg_score + pos_score)) * 100)
+                    score = int((pos_score / (neg_score + pos_score)) * 100)
 
-                a_score = int(movie_scraper.metadata.get("Score_Audience"))
-                r_score = int(movie_scraper.metadata.get("Score_Rotten"))
-                s_score = score
+                    a_score = int(movie_scraper.metadata.get("Score_Audience"))
+                    r_score = int(movie_scraper.metadata.get("Score_Rotten"))
+                    s_score = score
 
-                audience_score.append(a_score)
-                rotten_score.append(r_score)
-                sentiment_score.append(s_score)
+                    audience_score.append(a_score)
+                    rotten_score.append(r_score)
+                    sentiment_score.append(s_score)
 
-                a_r_difference.append(abs(a_score - r_score))
-                s_r_difference.append(abs(s_score - r_score))
-                s_a_difference.append(abs(s_score - a_score))
+                    a_r_difference.append(abs(a_score - r_score))
+                    s_r_difference.append(abs(s_score - r_score))
+                    s_a_difference.append(abs(s_score - a_score))
 
-            except:
-                print("Movie Failed...")
-                sentiment_score.append(0)
-                audience_score.append(0)
-                rotten_score.append(0)
+                except:
+                    print("Movie Failed...")
+                    sentiment_score.append(0)
+                    audience_score.append(0)
+                    rotten_score.append(0)
 
-                a_r_difference.append(0)
-                s_r_difference.append(0)
-                s_a_difference.append(0)
+                    a_r_difference.append(0)
+                    s_r_difference.append(0)
+                    s_a_difference.append(0)
 
-        print("SENTIMENT_SCORE: ", sentiment_score)
-        print("AUDIENCE_SCORE: ", audience_score)
-        print("ROTTEN_SCORE: ", rotten_score)
+            print("SENTIMENT_SCORE: ", sentiment_score)
+            print("AUDIENCE_SCORE: ", audience_score)
+            print("ROTTEN_SCORE: ", rotten_score)
 
-        movies_df['Sentiment Score'] = sentiment_score
-        movies_df['Audience Score'] = audience_score
-        movies_df['Rotten Score'] = rotten_score
+            movies_df['Sentiment Score'] = sentiment_score
+            movies_df['Audience Score'] = audience_score
+            movies_df['Rotten Score'] = rotten_score
 
-        movies_df['a_r_difference'] = a_r_difference
-        movies_df['s_r_difference'] = s_r_difference
-        movies_df['s_a_difference'] = s_a_difference
+            movies_df['a_r_difference'] = a_r_difference
+            movies_df['s_r_difference'] = s_r_difference
+            movies_df['s_a_difference'] = s_a_difference
 
-        # movies_df["Sentiment Score"] = pd.to_numeric(movies_df["Sentiment Score"])
-        # movies_df["Audience Score"] = pd.to_numeric(movies_df["Audience Score"])
-        # movies_df["Rotten Score"] = pd.to_numeric(movies_df["Rotten Score"])
+            # movies_df["Sentiment Score"] = pd.to_numeric(movies_df["Sentiment Score"])
+            # movies_df["Audience Score"] = pd.to_numeric(movies_df["Audience Score"])
+            # movies_df["Rotten Score"] = pd.to_numeric(movies_df["Rotten Score"])
 
-        movies_df = movies_df.dropna() 
+            movies_df = movies_df.dropna() 
 
-        st.dataframe(movies_df)
+            st.dataframe(movies_df)
+            movies_df.to_csv(save_location)
 
-        movies_df = movies_df.sort_values(by=['Sentiment Score'])
+        # movies_df = movies_df.sort_values(by=['Sentiment Score'])
+        # st.write("Movie with largest Sentiment Score: ", movies_df["Name"][0])
 
-        #st.dataframe(movies_df_2)
-        st.write("Movie with largest Sentiment Score: ", movies_df["Name"][0])
+        # movies_df = movies_df.sort_values(by=['Sentiment Score'], ascending=False)
+        # st.write("Movie with lowest Sentiment Score: ", movies_df["Name"][0])
 
-        movies_df = movies_df.sort_values(by=['Sentiment Score'], ascending=False)
-        st.write("Movie with lowest Sentiment Score: ", movies_df["Name"][0])
+        # movies_df = movies_df.sort_values(by=['a_r_difference'])
+        # st.write("Movie with largest Audience-Rotten Difference: ", movies_df["Name"][0])
 
-        movies_df = movies_df.sort_values(by=['a_r_difference'])
-        st.write("Movie with largest Audience-Rotten Difference: ", movies_df["Name"][0])
+        # movies_df = movies_df.sort_values(by=['s_r_difference'])
+        # st.write("Movie with largest Sentiment-Rotten Difference: ", movies_df["Name"][0])
 
-        movies_df = movies_df.sort_values(by=['s_r_difference'])
-        st.write("Movie with largest Sentiment-Rotten Difference: ", movies_df["Name"][0])
-
-        movies_df = movies_df.sort_values(by=['s_a_difference'])
-        #st.dataframe(movies_df)
-        st.write("Movie with largest Sentiment-Audience Difference: ", movies_df["Name"][0])
+        # movies_df = movies_df.sort_values(by=['s_a_difference'])
+        # #st.dataframe(movies_df)
+        # st.write("Movie with largest Sentiment-Audience Difference: ", movies_df["Name"][0])
 
         movies_df = movies_df.sort_values(by=['Sentiment Score'])
         movies_df.drop("Name", axis=1, inplace=True) 
+
+        fig1 = plt.figure()
+        fig2 = plt.figure()
+        fig3 = plt.figure()
+
+        ax = fig1.add_subplot(1,1,1)
+        bx = fig2.add_subplot(1,1,1)
+        cx = fig3.add_subplot(1,1,1)
+
+        ax.scatter(movies_df["Sentiment Score"], movies_df["Rotten Score"], alpha=0.5)
+        m1, b1 = np.polyfit(movies_df["Sentiment Score"], movies_df["Rotten Score"], 1)
+        ax.plot(movies_df["Sentiment Score"], m1*movies_df["Sentiment Score"] + b1)
+        ax.set_xlabel("Sentiment Score")
+        ax.set_ylabel("Rotten Score")
+
+        bx.scatter(movies_df["Sentiment Score"], movies_df["Audience Score"], alpha=0.5)
+        m2, b2 = np.polyfit(movies_df["Sentiment Score"], movies_df["Audience Score"], 1)
+        bx.plot(movies_df["Sentiment Score"], m2*movies_df["Sentiment Score"] + b2)
+        bx.set_xlabel("Sentiment Score")
+        bx.set_ylabel("Audience Score")
+
+        cx.scatter(movies_df["Rotten Score"], movies_df["Audience Score"], alpha=0.5)
+        m3, b3 = np.polyfit(movies_df["Rotten Score"], movies_df["Audience Score"], 1)
+        cx.plot(movies_df["Rotten Score"], m3*movies_df["Rotten Score"] + b3)
+        cx.set_xlabel("Rotten Score")
+        cx.set_ylabel("Audience Score")
+
+        st.pyplot(fig1)
+        st.pyplot(fig2)
+        st.pyplot(fig3)
 
         st.line_chart(movies_df)
 
