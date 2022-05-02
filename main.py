@@ -9,6 +9,46 @@ from rotten_tomatoes_scraper.rt_scraper import MovieScraper
 #nltk.download('vader_lexicon')
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from review_scraper import *
+from segtok.segmenter import split_single
+import re
+
+from flair.models import TextClassifier
+from flair.data import Sentence
+
+classifier = TextClassifier.load('en-sentiment')
+
+def make_sentences(text):
+    sentences = [sent for sent in split_single(text)]
+    return sentences
+
+def predict(sentence):
+    if sentence == "":
+        return 0
+    text = Sentence(sentence)
+    classifier.predict(text)
+    value = text.labels[0].to_dict()['value'] 
+    if value == 'POSITIVE':
+        print(text.to_dict())
+        print(text.to_dict())
+        result = text.to_dict()['all labels'][0]['confidence']
+    else:
+        print(text.to_dict())
+        print(text.to_dict())
+        result = -(text.to_dict()['all labels'][0]['confidence'])
+    return round(result, 3)
+
+def get_scores(sentences):
+    results = []
+    
+    for i in range(0, len(sentences)): 
+        results.append(predict(sentences[i]))
+    return results
+
+def get_sum(scores):
+    
+    result = round(sum(scores), 3)
+    return result
+
 
 def get_movie():
     #movies_list = rtp.scrape_movie_names(2008) # get top movies from 2008
@@ -48,9 +88,9 @@ def reviews(option):
 
     run(option)
 
-    df = pd.read_csv("reviews.csv")
+    header_list = ["NA", "freshness", "source", "review", "date"]
+    df = pd.read_csv("reviews.csv", names=header_list)
     st.dataframe(df)
-    df.columns = ["NA", "freshness", "source", "review", "date"]
     df = df["review"].dropna()
 
     # st.dataframe(df)
@@ -78,10 +118,22 @@ def reviews(option):
     #st.write("Neg / Pos Score: ", 100 - (neg_score / pos_score) * 100)
     #st.write("Pos / (Neg + Pos) Score: ",  (pos_score / (neg_score + pos_score)) * 100)
 
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Pos + Neg Polarity Score", int((pos_score + neu_score) * 100))
-    col2.metric("Neg / Pos Score", int(100 - (neg_score / pos_score) * 100))
-    col3.metric("Pos / (Neg + Pos) Score", int((pos_score / (neg_score + pos_score)) * 100))
+    st.dataframe(df)
+
+    df["sentences"] = df.apply(make_sentences)
+    df["scores"] = df["sentences"].apply(get_scores)
+    df['scores_sum'] = df["scores"].apply(get_sum)
+    #st.dataframe(df)
+
+    sum_flair = df['scores_sum'].sum()
+    size_flair = df['scores_sum'].size
+    avg_flair = sum_flair / size_flair * 100
+
+    col1, col2 = st.columns(2)
+    #col1.metric("Pos + Neg Polarity Score", int((pos_score + neu_score) * 100))
+    #col2.metric("Neg / Pos Score", int(100 - (neg_score / pos_score) * 100))
+    col1.metric("VADER Sentiment Score", int((pos_score / (neg_score + pos_score)) * 100))
+    col2.metric("Flair Sentiment Score", int(avg_flair))
 
     if option == "anaconda":
         st.balloons()
