@@ -92,7 +92,7 @@ def reviews(option):
 
     header_list = ["NA", "freshness", "source", "review", "date"]
     df = pd.read_csv("reviews.csv", names=header_list)
-    st.dataframe(df)
+    #st.dataframe(df)
     df = df["review"].dropna()
 
     # st.dataframe(df)
@@ -120,7 +120,7 @@ def reviews(option):
     #st.write("Neg / Pos Score: ", 100 - (neg_score / pos_score) * 100)
     #st.write("Pos / (Neg + Pos) Score: ",  (pos_score / (neg_score + pos_score)) * 100)
 
-    st.dataframe(df)
+    #st.dataframe(df)
 
     df["sentences"] = df.apply(make_sentences)
     df["scores"] = df["sentences"].apply(get_scores)
